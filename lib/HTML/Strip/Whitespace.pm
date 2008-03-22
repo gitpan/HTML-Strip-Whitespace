@@ -2,6 +2,9 @@ package HTML::Strip::Whitespace;
 
 package HTML::Strip::Whitespace::State;
 
+use strict;
+use warnings;
+
 sub new
 {
     my $class = shift;
@@ -182,11 +185,11 @@ package HTML::Strip::Whitespace;
 
 use 5.004;
 use strict;
+use warnings;
 
 use HTML::TokeParser::Simple;
 
 require Exporter;
-use AutoLoader qw(AUTOLOAD);
 use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 @ISA = qw(Exporter);
 
@@ -207,7 +210,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 	
 );
 
-$VERSION = '0.1.5';
+$VERSION = '0.1.6';
 
 # Preloaded methods go here.
 
@@ -234,6 +237,7 @@ sub html_strip_whitespace
 
 1;
 __END__
+
 =head1 NAME
 
 HTML::Strip::Whitespace - Perl extension for stripping whitespace out of
@@ -257,7 +261,7 @@ HTML.
     my $buffer = "";
     
     html_strip_whitespace(
-        'source' => \$html
+        'source' => \$html,
         'out' => \$buffer
         );
 
@@ -271,6 +275,20 @@ with named parameters. C<source> is the HTML::TokeParser source for the
 HTML. C<out> can be a reference to a buffer which will be filled with the 
 stripped HTML, or alternatively a reference to a sub-routine or a file handle
 that will output it.
+
+=head1 FUNCTIONS
+
+=head2 html_strip_whitespace(source => $src, out => $out, strip_newlinews => $strip)
+
+C<source> is the HTML::TokeParser source for the 
+HTML. C<out> can be a reference to a buffer which will be filled with the 
+stripped HTML, or alternatively a reference to a sub-routine or a file handle
+that will output it.
+
+=head1 SEE ALSO
+
+HTML Tidy with its Perl binding, which probably does a better and faster job
+of rendering this page.
 
 =head1 AUTHOR
 
