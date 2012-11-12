@@ -2,6 +2,7 @@ Build.PL
 Changes
 COPYING
 examples/strip-ws.pl
+inc/Test/Run/Builder.pm
 lib/HTML/Strip/Whitespace.pm
 Makefile.PL
 MANIFEST
@@ -11,3 +12,4 @@ t/HTML-Strip-Whitespace.t
 TODO
 t/pod-coverage.t
 t/pod.t
+META.json

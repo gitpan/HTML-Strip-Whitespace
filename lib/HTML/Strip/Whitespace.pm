@@ -1,9 +1,9 @@
 package HTML::Strip::Whitespace;
 
-package HTML::Strip::Whitespace::State;
-
 use strict;
 use warnings;
+
+package HTML::Strip::Whitespace::State;
 
 sub new
 {
@@ -27,7 +27,7 @@ sub initialize
     $self->{'prev'} = undef;
     $self->{'next'} = undef;
     $self->{'this'} = undef;
-    $self->{'parser'} = 
+    $self->{'parser'} =
         HTML::TokeParser::Simple->new(
             to_array($args{'parser_args'})
         );
@@ -45,7 +45,7 @@ sub initialize
 sub next_state
 {
     my $self = shift;
-    ($self->{'prev'}, $self->{'this'}, $self->{'next'}) = 
+    ($self->{'prev'}, $self->{'this'}, $self->{'next'}) =
         ($self->{'this'}, $self->{'next'}, $self->{'parser'}->get_token());
     if (!defined($self->{'this'}))
     {
@@ -95,7 +95,7 @@ sub is_preserving_start_tag
 {
     my $self = shift;
     my $t = $self->this();
-    if ($t->is_start_tag() && 
+    if ($t->is_start_tag() &&
         exists($preserving_start_tags{$t->get_tag()})
        )
     {
@@ -107,7 +107,7 @@ sub is_preserving_start_tag
 sub handle_text
 {
     my $state = shift;
-    
+
     if ($state->this->is_text())
     {
         $state->out($state->text_strip());
@@ -124,7 +124,7 @@ sub out
     my $self = shift;
     my $what = shift;
     my $out_fh = $self->{'out_fh'};
-    
+
     if (ref($out_fh) eq "CODE")
     {
         &{$out_fh}($what);
@@ -150,7 +150,7 @@ sub out_this
 sub process
 {
     my $state = shift;
-    
+
     my $tag_type;
 
     while ($state->next_state())
@@ -207,22 +207,22 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} });
 
 @EXPORT = qw(
-	
+
 );
 
-$VERSION = '0.1.6';
+$VERSION = '0.1.7';
 
 # Preloaded methods go here.
 
 sub html_strip_whitespace
 {
     my %args = (@_);
-    my $source = $args{'source'} or 
+    my $source = $args{'source'} or
         die "source argument not specified.";
     my $strip_newlines = $args{'strip_newlines'} || 0;
     my $out_fh = $args{'out'} or
         die "out argument not specified.";
-    my $state = 
+    my $state =
         HTML::Strip::Whitespace::State->new(
             'parser_args' => $source,
             'strip_newlines' => $strip_newlines,
@@ -246,20 +246,20 @@ HTML.
 =head1 SYNOPSIS
 
     use HTML::Strip::Whitespace qw(html_strip_whitespace);
-    
+
     my $html = <<"EOF";
     <html>
     <body>
-    
+
     <p>
         Hello there!
     </p>
-    
+
     </body>
     </html>
     EOF
     my $buffer = "";
-    
+
     html_strip_whitespace(
         'source' => \$html,
         'out' => \$buffer
@@ -271,8 +271,8 @@ This module tries to strip as much whitespace from an HTML as it can
 without eliminating valid whitespace (like the one inside <pre>).
 
 To use it call the function C<HTML::Strip::Whitespace::html_strip_whitespace>,
-with named parameters. C<source> is the HTML::TokeParser source for the 
-HTML. C<out> can be a reference to a buffer which will be filled with the 
+with named parameters. C<source> is the HTML::TokeParser source for the
+HTML. C<out> can be a reference to a buffer which will be filled with the
 stripped HTML, or alternatively a reference to a sub-routine or a file handle
 that will output it.
 
@@ -280,25 +280,62 @@ that will output it.
 
 =head2 html_strip_whitespace(source => $src, out => $out, strip_newlinews => $strip)
 
-C<source> is the HTML::TokeParser source for the 
-HTML. C<out> can be a reference to a buffer which will be filled with the 
+C<source> is the HTML::TokeParser source for the
+HTML. C<out> can be a reference to a buffer which will be filled with the
 stripped HTML, or alternatively a reference to a sub-routine or a file handle
 that will output it.
+
+=head1 LINKS
+
+=over 4
+
+=item * Homepage
+
+L<http://web-cpan.shlomifish.org/modules/HTML-Strip-Whitespace/>
+
+=item * Bitbucket.org (Mercurial) Repository
+
+L<http://bitbucket.org/shlomif/perl-html-strip-whitespace>
+
+=back
 
 =head1 SEE ALSO
 
 HTML Tidy with its Perl binding, which probably does a better and faster job
-of rendering this page.
+of performing this task.
+
+L<HTML::Clean> is a module which also aims to optimise the size of HTML.
 
 =head1 AUTHOR
 
-Shlomi Fish, E<lt>shlomif@iglu.org.ilE<gt>
+Shlomi Fish, L<http://www.shlomifish.org/> (E-mail C<shlomif@cpan.org> ).
 
-=head1 COPYRIGHT AND LICENSE
+=head1 COPYRIGHT & LICENSE
 
-Copyright (C) 2004 by Shlomi Fish
+Copyright 2004 by Shlomi Fish
 
-This library is free software; you can redistribute it and/or modify it
-under the terms of the MIT X11 license.
+This program is distributed under the MIT (X11) License:
+L<http://www.opensource.org/licenses/mit-license.php>
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
 
 =cut
