@@ -4,7 +4,7 @@
       "Shlomi Fish, L<http://www.shlomifish.org/> (E-mail C<shlomif@cpan.org> )."
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.4003, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "Module::Build version 0.4007, CPAN::Meta::Converter version 2.132830",
    "keywords" : [
       "bandwidth",
       "compression",
@@ -40,6 +40,7 @@
          "requires" : {
             "Exporter" : "0",
             "HTML::TokeParser::Simple" : "0",
+            "perl" : "5.008",
             "strict" : "0",
             "vars" : "0",
             "warnings" : "0"
@@ -49,22 +50,21 @@
    "provides" : {
       "HTML::Strip::Whitespace" : {
          "file" : "lib/HTML/Strip/Whitespace.pm",
-         "version" : "v0.1.7"
+         "version" : "v0.1.8"
       },
       "HTML::Strip::Whitespace::State" : {
-         "file" : "lib/HTML/Strip/Whitespace.pm",
-         "version" : 0
+         "file" : "lib/HTML/Strip/Whitespace.pm"
       }
    },
    "release_status" : "stable",
    "resources" : {
       "homepage" : "http://web-cpan.shlomifish.org/modules/HTML-Strip-Whitespace/",
       "license" : [
-         "http://opensource.org/licenses/mit-license.php"
+         "http://www.opensource.org/licenses/mit-license.php"
       ],
       "repository" : {
          "url" : "http://bitbucket.org/shlomif/perl-html-strip-whitespace"
       }
    },
-   "version" : "v0.1.7"
+   "version" : "v0.1.8"
 }

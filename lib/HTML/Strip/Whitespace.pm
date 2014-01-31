@@ -183,7 +183,7 @@ sub process
 
 package HTML::Strip::Whitespace;
 
-use 5.004;
+use 5.008;
 use strict;
 use warnings;
 
@@ -210,7 +210,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 
 );
 
-$VERSION = '0.1.7';
+$VERSION = '0.1.8';
 
 # Preloaded methods go here.
 
